@@ -20,11 +20,7 @@ class BooksApp extends React.Component {
     let promise = BooksAPI.getAll()
   
     promise.then(books => {
-      this.setState({
-        books: books
-      }, () => {
-        console.log(this.state.books);
-      })
+      this.convertBooksToBookshelves(books);
     });
   }
 
@@ -34,6 +30,40 @@ class BooksApp extends React.Component {
 
   handleHideSearchPage() {
     this.setState({ showSearchPage: false })
+  }
+
+  convertBooksToBookshelves(books) {
+    var currentlyReadingBooks = [];
+    var wantToReadBooks = [];
+    var readBooks = [];
+    books.forEach(function (book, index) {
+      if (book.shelf === "currentlyReading") {
+        currentlyReadingBooks.push(book);
+      } else if (book.shelf === "wantToRead") {
+        wantToReadBooks.push(book);
+      } else if (book.shelf === "read") {
+        readBooks.push(book);
+      }
+    });
+
+    let currentlyReading = {
+      title: 'currentlyReading',
+      books: currentlyReadingBooks
+    }
+
+    let wantToRead = {
+      title: 'wantToRead',
+      books: wantToReadBooks
+    }
+
+    let read = {
+      title: 'read',
+      books: readBooks
+    }
+
+    this.setState({ 
+      bookshelves: [currentlyReading, wantToRead, read]
+    })
   }
 
   render() {
