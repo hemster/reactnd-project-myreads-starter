@@ -15,6 +15,7 @@ const ListBooksScreen = (props) => (
                         key={i}
                         title={bookshelf.title}
                         books={bookshelf.books}
+                        handleChangeBookShelf={props.handleChangeBookShelf}
                     />
                 ))}
             </div>
@@ -28,6 +29,7 @@ const ListBooksScreen = (props) => (
 ListBooksScreen.propTypes = {
     bookshelves: PropTypes.arrayOf(PropTypes.object).isRequired,
     showSearchPage: PropTypes.func.isRequired,
+    handleChangeBookShelf: PropTypes.func.isRequired
 };
 
 export default ListBooksScreen;

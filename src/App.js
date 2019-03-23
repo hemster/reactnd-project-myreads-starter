@@ -17,20 +17,25 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
+    this.getAllBooks();
+  }
+
+  getAllBooks = () => {
+    console.log("getAllBooks");
     BooksAPI.getAll().then(books => {
       this.convertBooksToBookshelves(books);
     });
   }
 
-  handleShowSearchPage() {
+  handleShowSearchPage = () => {
     this.setState({ showSearchPage: true })
   }
 
-  handleHideSearchPage() {
+  handleHideSearchPage = () => {
     this.setState({ showSearchPage: false })
   }
 
-  convertBooksToBookshelves(books) {
+  convertBooksToBookshelves = (books) => {
     var currentlyReadingBooks = [];
     var wantToReadBooks = [];
     var readBooks = [];
@@ -64,6 +69,16 @@ class BooksApp extends React.Component {
     })
   }
 
+  handleChangeBookShelf = (book, bookShelf, ) => {
+      console.log(bookShelf);
+      console.log(book);
+
+      BooksAPI.update(book, bookShelf).then(bookshelves => {
+        console.log(bookshelves);
+        this.getAllBooks();
+      });
+  }
+
   render() {
     const { 
       bookshelves, 
@@ -73,13 +88,14 @@ class BooksApp extends React.Component {
       <div className="app">
         {showSearchPage ? (
           <SearchBooksScreen
-            books={[]}
-            hideSearchPage={this.handleHideSearchPage.bind(this)}
+            hideSearchPage={this.handleHideSearchPage}
+            handleChangeBookShelf={this.handleChangeBookShelf}
           />
         ) : (
           <ListBooksScreen
             bookshelves={bookshelves}
-            showSearchPage={this.handleShowSearchPage.bind(this)}
+            showSearchPage={this.handleShowSearchPage}
+            handleChangeBookShelf={this.handleChangeBookShelf}
           />
         )}
       </div>

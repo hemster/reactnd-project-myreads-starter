@@ -3,10 +3,6 @@ import './App.css'
 import PropTypes from 'prop-types';
 
 import Book from './Book'
-const handleChangeBookShelf = (bookShelf, bookID) => {
-    console.log(bookShelf);
-    console.log(bookID);
-}
 
 const Bookshelf = (props) => (
     <div className="bookshelf">
@@ -20,7 +16,7 @@ const Bookshelf = (props) => (
                     authors={book.authors}
                     imageURLs={book.imageLinks}
                     bookShelf={book.shelf}
-                    handleChangeBookShelf={handleChangeBookShelf}
+                    handleChangeBookShelf={ (event) => props.handleChangeBookShelf(book, event.target.value)}
                 />
             </li>
             ))
@@ -33,6 +29,7 @@ const Bookshelf = (props) => (
 Bookshelf.propTypes = {
     title: PropTypes.string.isRequired,
     books: PropTypes.arrayOf(PropTypes.object).isRequired,
+    handleChangeBookShelf: PropTypes.func.isRequired,
 };
 
 export default Bookshelf;

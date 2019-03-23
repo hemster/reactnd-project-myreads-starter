@@ -26,7 +26,7 @@ class SearchBooksScreen extends React.Component {
 
     render() {
         const { books, value } = this.state;
-        const { hideSearchPage } = this.props; 
+        const { hideSearchPage, handleChangeBookShelf } = this.props; 
         return(
             <div className="search-books">
                 <div className="search-books-bar">
@@ -51,6 +51,7 @@ class SearchBooksScreen extends React.Component {
                                 title={book.title}
                                 authors={book.authors}
                                 imageURLs={book.imageLinks}
+                                handleChangeBookShelf={ (event) => handleChangeBookShelf(event.target.value, book)}
                             />
                         </li>
                         ))
@@ -64,6 +65,7 @@ class SearchBooksScreen extends React.Component {
 
 SearchBooksScreen.propTypes = {
     hideSearchPage: PropTypes.func.isRequired,
+    handleChangeBookShelf: PropTypes.func.isRequired
 };
 
 export default SearchBooksScreen;
