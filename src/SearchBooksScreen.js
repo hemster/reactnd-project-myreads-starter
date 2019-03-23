@@ -36,7 +36,6 @@ class SearchBooksScreen extends React.Component {
 
         var appendedBooks = searchResults.map((searchResult) => {
             var book = books.find((b) => b.id === searchResult.id);
-            console.log("book: " + book);
             return book || searchResult;
         });
 

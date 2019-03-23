@@ -16,7 +16,6 @@ class BooksApp extends React.Component {
   }
 
   getAllBooks = () => {
-    console.log("getAllBooks");
     BooksAPI.getAll().then(books => {
       this.convertBooksToBookshelves(books);
     });
@@ -58,11 +57,7 @@ class BooksApp extends React.Component {
   }
 
   handleChangeBookShelf = (book, bookShelf, ) => {
-      console.log(bookShelf);
-      console.log(book);
-
       BooksAPI.update(book, bookShelf).then(bookshelves => {
-        console.log(bookshelves);
         this.getAllBooks();
       });
   }
