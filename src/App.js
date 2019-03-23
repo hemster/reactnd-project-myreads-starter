@@ -17,9 +17,7 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
-    let promise = BooksAPI.getAll()
-  
-    promise.then(books => {
+    BooksAPI.getAll().then(books => {
       this.convertBooksToBookshelves(books);
     });
   }
