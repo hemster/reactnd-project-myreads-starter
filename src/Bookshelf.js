@@ -15,6 +15,7 @@ const Bookshelf = (props) => (
                     title={book.title}
                     authors={book.authors}
                     imageURL={book.imageLinks.thumbnail}
+                    bookShelf={book.shelf}
                 />
             </li>
             ))
