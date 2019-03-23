@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 import './App.css'
 import PropTypes from 'prop-types';
 import Bookshelf from './Bookshelf'
@@ -21,14 +23,15 @@ const ListBooksScreen = (props) => (
             </div>
         </div>
         <div className="open-search">
-            <button onClick={props.showSearchPage}>Add a book</button>
+            <Link to='/search'>
+                <button>Add a book</button>
+            </Link>
         </div>
     </div>
 );
 
 ListBooksScreen.propTypes = {
     bookshelves: PropTypes.arrayOf(PropTypes.object).isRequired,
-    showSearchPage: PropTypes.func.isRequired,
     handleChangeBookShelf: PropTypes.func.isRequired
 };
 
