@@ -7,25 +7,43 @@ import Book from './Book'
 class SearchBooksScreen extends React.Component {
     state = {
         value: '',
-        books: []
+        searchResults: [],
+    }
+
+    componentDidUpdate(prevProps) {
+        if(this.props.books !== prevProps.books) {
+            this.appendBookShelf(this.state.searchResults);
+        }
     }
 
     handleChange = (event) => {
         const query = event.target.value;
         this.setState({value: query});
-        BooksAPI.search(query).then(books => {
-            if (!books.error) {
-                this.setState({books: books});
+        BooksAPI.search(query).then(searchResults => {
+            if (!searchResults.error) {
+                this.appendBookShelf(searchResults);
             } else {
-                this.setState({books: []});
+                this.setState({searchResults: []});
             }
          }).catch(function(error) {
 
         });
     }
 
+    appendBookShelf = (searchResults) => {
+        const { books } = this.props;
+
+        var appendedBooks = searchResults.map((searchResult) => {
+            var book = books.find((b) => b.id === searchResult.id);
+            console.log("book: " + book);
+            return book || searchResult;
+        });
+
+        this.setState({searchResults: appendedBooks});
+    }
+
     render() {
-        const { books, value } = this.state;
+        const { searchResults, value } = this.state;
         const { hideSearchPage, handleChangeBookShelf } = this.props; 
         return(
             <div className="search-books">
@@ -45,13 +63,14 @@ class SearchBooksScreen extends React.Component {
                 </div>
                 <div className="search-books-results">
                     <ol className="books-grid">
-                    { books.map((book, i) => (
+                    { searchResults.map((book, i) => (
                         <li key={i}>
                             <Book 
                                 title={book.title}
                                 authors={book.authors}
                                 imageURLs={book.imageLinks}
-                                handleChangeBookShelf={ (event) => handleChangeBookShelf(event.target.value, book)}
+                                bookShelf={book.shelf}
+                                handleChangeBookShelf={ (event) => handleChangeBookShelf(book, event.target.value)}
                             />
                         </li>
                         ))
@@ -65,7 +84,8 @@ class SearchBooksScreen extends React.Component {
 
 SearchBooksScreen.propTypes = {
     hideSearchPage: PropTypes.func.isRequired,
-    handleChangeBookShelf: PropTypes.func.isRequired
+    handleChangeBookShelf: PropTypes.func.isRequired,
+    books: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default SearchBooksScreen;

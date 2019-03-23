@@ -65,7 +65,8 @@ class BooksApp extends React.Component {
     }
 
     this.setState({ 
-      bookshelves: [currentlyReading, wantToRead, read]
+      bookshelves: [currentlyReading, wantToRead, read],
+      books: books
     })
   }
 
@@ -81,6 +82,7 @@ class BooksApp extends React.Component {
 
   render() {
     const { 
+      books,
       bookshelves, 
       showSearchPage,
      } = this.state;
@@ -90,6 +92,7 @@ class BooksApp extends React.Component {
           <SearchBooksScreen
             hideSearchPage={this.handleHideSearchPage}
             handleChangeBookShelf={this.handleChangeBookShelf}
+            books={books}
           />
         ) : (
           <ListBooksScreen
