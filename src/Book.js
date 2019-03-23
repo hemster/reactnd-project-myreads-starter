@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 const Book = (props) => (
     <div className="book">
         <div className="book-top">
-        <div className="book-cover" style={props.cover}></div>
+        {/* TOFIX: backgroundImage without width and height will not show so have to hard code it here */}
+        <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${props.imageURL})` }}></div>
         <div className="book-shelf-changer">
             <select>
             <option value="move" disabled>Move to...</option>
@@ -23,10 +24,8 @@ const Book = (props) => (
 
 Book.propTypes = {
     title: PropTypes.string.isRequired,
-    authors: PropTypes.string.isRequired,
-    cover: PropTypes.object.isRequired,
+    authors: PropTypes.arrayOf(PropTypes.string).isRequired,
+    imageURL: PropTypes.string.isRequired,
 };
 
 export default Book;
-
-// { width: 128, height: 193, backgroundImage: 'url("http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api")' }
