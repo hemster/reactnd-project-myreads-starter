@@ -9,12 +9,12 @@ const Bookshelf = (props) => (
         <h2 className="bookshelf-title">{props.title}</h2>
         <div className="bookshelf-books">
         <ol className="books-grid">
-        { props.books.map((book) => (
-            <li>
+        { props.books.map((book, i) => (
+            <li key={i}>
                 <Book 
                     title={book.title}
                     authors={book.authors}
-                    cover={book.cover}
+                    imageURL={book.imageLinks.thumbnail}
                 />
             </li>
             ))

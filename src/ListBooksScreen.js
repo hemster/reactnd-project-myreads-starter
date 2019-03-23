@@ -10,8 +10,9 @@ const ListBooksScreen = (props) => (
         </div>
         <div className="list-books-content">
             <div>
-                {props.bookshelves.map((bookshelf) => (
+                {props.bookshelves.map((bookshelf, i) => (
                     <Bookshelf
+                        key={i}
                         title={bookshelf.title}
                         books={bookshelf.books}
                     />
