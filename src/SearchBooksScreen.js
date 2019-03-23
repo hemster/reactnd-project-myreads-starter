@@ -11,7 +11,6 @@ class SearchBooksScreen extends React.Component {
     }
 
     handleChange = (event) => {
-        // TOFIX: Got error when type fast
         const query = event.target.value;
         this.setState({value: query});
         BooksAPI.search(query).then(books => {
@@ -19,10 +18,9 @@ class SearchBooksScreen extends React.Component {
                 this.setState({books: books});
             } else {
                 this.setState({books: []});
-                console.log(books.error);
             }
          }).catch(function(error) {
-            console.log(error);
+
         });
     }
 
@@ -52,7 +50,7 @@ class SearchBooksScreen extends React.Component {
                             <Book 
                                 title={book.title}
                                 authors={book.authors}
-                                imageURL={book.imageLinks.thumbnail}
+                                imageURLs={book.imageLinks}
                             />
                         </li>
                         ))

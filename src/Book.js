@@ -2,24 +2,18 @@ import React from 'react'
 import './App.css'
 import PropTypes from 'prop-types';
 
-// Should move to higher component
-const handleChangeBookShelf = (event) => {
-    const bookShelf = event.target.value;
-    console.log(bookShelf);
-}
-
 const Book = (props) => (
     <div className="book">
         <div className="book-top">
         {/* TOFIX: backgroundImage without width and height will not show so have to hard code it here */}
-        <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${props.imageURL})` }}></div>
+        <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${props.imageURLs.thumbnail})` }}></div>
         <div className="book-shelf-changer">
-            <select value={props.bookShelf} onChange={handleChangeBookShelf}>
+            <select value={props.bookShelf} onChange={props.handleChangeBookShelf}>
                 <option value="move" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
                 <option value="read">Read</option>
-                <option selected value="none">None</option>
+                <option value="none">None</option>
             </select>
         </div>
         </div>
@@ -30,9 +24,16 @@ const Book = (props) => (
 
 Book.propTypes = {
     title: PropTypes.string.isRequired,
-    authors: PropTypes.arrayOf(PropTypes.string).isRequired,
-    imageURL: PropTypes.string.isRequired,
-    bookShelf: PropTypes.string.isRequired,
+    authors: PropTypes.arrayOf(PropTypes.string),
+    imageURLs: PropTypes.object,
+    bookShelf: PropTypes.string,
+    handleChangeBookShelf: PropTypes.func.isRequired
 };
+
+Book.defaultProps = {
+    bookShelf: 'none',
+    imageURLs: {thumbnail: ''},
+    authors: ['']
+  };
 
 export default Book;

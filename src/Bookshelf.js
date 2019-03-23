@@ -3,6 +3,10 @@ import './App.css'
 import PropTypes from 'prop-types';
 
 import Book from './Book'
+const handleChangeBookShelf = (bookShelf, bookID) => {
+    console.log(bookShelf);
+    console.log(bookID);
+}
 
 const Bookshelf = (props) => (
     <div className="bookshelf">
@@ -14,8 +18,9 @@ const Bookshelf = (props) => (
                 <Book 
                     title={book.title}
                     authors={book.authors}
-                    imageURL={book.imageLinks.thumbnail}
+                    imageURLs={book.imageLinks}
                     bookShelf={book.shelf}
+                    handleChangeBookShelf={handleChangeBookShelf}
                 />
             </li>
             ))
